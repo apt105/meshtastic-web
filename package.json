@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "proxy": "http://172.30.9.165",
-  "homepage" : "https://github.com/meshtastic/meshtastic-web",
+  "homepage": "https://github.com/meshtastic/meshtastic-web",
   "author": {
     "name": "Charles Crossan",
     "email": "crossan007@gmail.com",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@babel/core": "7.12.3",
-    "@meshtastic/meshtasticjs": "^0.4.2",
+    "@meshtastic/meshtasticjs": "^0.5.1",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
     "@svgr/webpack": "5.4.0",
     "@testing-library/jest-dom": "^5.11.6",
