@@ -88,7 +88,7 @@ class DeviceFiles extends Component<any,any> { // TODO: Properly define / enforc
 
   refreshSPIFFSFileTree() {
     console.log("getting filetree");
-    fetch("/json/spiffs/browse/static/").then(function(response) {
+    fetch("/json/spiffs/browse/static").then(function(response) {
       if (response.status !== 200) {
          // couldn't read files
          return

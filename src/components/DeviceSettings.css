@@ -45,7 +45,8 @@
   background-color: lightgray;
   overflow-wrap: break-word;
   border: 1px solid grey;
-  padding-left: 3px
+  padding-left: 3px;
+  overflow-y: scroll;
 }
 
 .SectionHeader {

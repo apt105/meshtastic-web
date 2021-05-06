@@ -3,6 +3,14 @@ import { Component } from "react";
 import "./messages.css";
 
 class PacketLog extends Component<any,any> { // TODO: Properly define / enforce Typescript types https://github.com/meshtastic/meshtastic-web/issues/11
+  
+  bottomRef: React.RefObject<HTMLDivElement>; 
+  
+  constructor(props) {
+    super(props);
+    this.bottomRef = React.createRef();
+  }
+  
   // TODO: This shouldn't be necessary
   // but for some reason, packets from meshtastic.js throw
   // an exception when stringifying them
@@ -15,18 +23,29 @@ class PacketLog extends Component<any,any> { // TODO: Properly define / enforce 
     }
   }
   AppPacketToString(value){ 
-    if (value.packet && value.packet.decoded) {
-      return JSON.stringify(value.packet.decoded.data.GetAppDataMessage());
-    }
+    //if (value.packet && value.packet.decoded) {
+      //return JSON.stringify(value.packet.decoded.data.GetAppDataMessage()); // this was removed
+    //}
   }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    this.bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   render() {
-    console.log(this.props.packets);
     return (
       <div className="Messages">
         <div className="MessageHistory">
-          Packets:
           {this.props.packets.map((value, index) => (
-            <div key="packet${index}" style={{
+            <div key={"packet"+index} style={{
               marginTop: 10,
               border: "1px solid black"
             }}>
@@ -35,6 +54,7 @@ class PacketLog extends Component<any,any> { // TODO: Properly define / enforce 
               <br />
             </div>
           ))}
+          <div ref={this.bottomRef} />
         </div>
       </div>
     );

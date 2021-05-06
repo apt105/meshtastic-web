@@ -1,3 +1,4 @@
+import { DeviceStatusEnum } from "@meshtastic/meshtasticjs/dist/types";
 import * as React from "react";
 import { Component } from "react";
 
@@ -58,13 +59,32 @@ class HTTPStatus extends Component<any,any> { // TODO: Properly define / enforce
     clearInterval(this.interval);
   }
 
+  GetStatusText() {
+    switch (this.props.connectionStatus) {
+      case DeviceStatusEnum.DEVICE_RESTARTING:
+        return "Restarting";
+      case DeviceStatusEnum.DEVICE_DISCONNECTED:
+        return "Disconnected";
+      case DeviceStatusEnum.DEVICE_CONNECTING:
+        return "Connecting";
+      case DeviceStatusEnum.DEVICE_RECONNECTING:
+        return "Reconnecting";
+      case DeviceStatusEnum.DEVICE_CONNECTED:
+        return "Connected";
+      case DeviceStatusEnum.DEVICE_CONFIGURING:
+        return "Configuring";
+      case DeviceStatusEnum.DEVICE_CONFIGURED:
+        return "Configured";
+    }
+  }
+
   // do this: https://stackoverflow.com/questions/39426083/update-react-component-every-second
 
   render() {
     return (
       <div>
-        Connected: {this.props.RadioIsConnected ? "true" : "false"}
-        &nbsp; || &nbsp; HTTP Status: (
+        Status: {this.GetStatusText()}
+        &nbsp; || &nbsp; Last Device Transaction: (
         <span
           style={{
             color: this.GetHTTPColor(),
@@ -80,7 +100,7 @@ class HTTPStatus extends Component<any,any> { // TODO: Properly define / enforce
         >
           {this.GetFormattedSecondsString(this.state.seconds_since_http_interaction)}
         </span>
-        ) &nbsp; || &nbsp; Radio Mesh: (
+        ) &nbsp; || &nbsp; Last Mesh Message: (
         <span
           style={{
             color: this.GetTimeColor(this.state.seconds_since_radio_packet),

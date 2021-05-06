@@ -4,6 +4,7 @@ import Message from "./message";
 import "./messages.css";
 
 class Messages extends Component<any,any> { // TODO: Properly define / enforce Typescript types https://github.com/meshtastic/meshtastic-web/issues/11
+  bottomRef: React.RefObject<HTMLDivElement>; 
   constructor(props) {
     super(props);
     this.SendMessage = this.SendMessage.bind(this);
@@ -11,6 +12,7 @@ class Messages extends Component<any,any> { // TODO: Properly define / enforce T
     this.state = {
       NewMessageValue: "",
     };
+    this.bottomRef = React.createRef();
   }
 
   SendMessage() {
@@ -27,15 +29,33 @@ class Messages extends Component<any,any> { // TODO: Properly define / enforce T
     });
   }
 
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    this.bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   render() {
     return (
       <div className="Messages">
         <div className="MessageHistory">
-          Messages:
           {this.props.messages.map((value, index) => (
             <Message message={value} OurNodeId={this.props.OurNodeId} users={this.props.users} />
           ))}
+           <div 
+           style={{
+             clear: "both"
+           }
+           }
+            ref={this.bottomRef} />
         </div>
+        
         <div className="NewMessage">
           <label>
             Compose Message:

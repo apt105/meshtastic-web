@@ -72,11 +72,13 @@ class DeviceSettings extends Component<any,any> { // TODO: Properly define / enf
 
   writeToRadio() {
     console.log("setting radio configs: ", this.state.radioConfig)
-    this.props.httpconn.setRadioConfig(this.state.radioConfig);
-    this.props.httpconn.setOwner(this.state.owner);
-    console.log("done setting radio config; rebooting");
-    fetch("/restart",{
-      method:"POST"
+    Promise.all(
+      [
+        this.props.httpconn.setRadioConfig(this.state.radioConfig),
+        this.props.httpconn.setChannelSettings(this.state.radioConfig.channelSettings),
+        this.props.httpconn.setOwner(this.state.owner)
+      ]).then((d) => {
+        console.log("done setting radio config",d);
     });
   }
 
