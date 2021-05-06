@@ -130,7 +130,10 @@ class DeviceSettings extends Component<any,any> { // TODO: Properly define / enf
 
     return (
       <div className="DeviceSettings">
-        
+        <div className="DeviceProfile">
+          <span className="SectionHeader">Device Profile</span><br/>
+          { myInfo }
+        </div>
         <div className="DeviceActions">
           <span className="SectionHeader">Device Actions</span><br/>
           <button onClick={()=>{ fetch("/restart",{
@@ -154,10 +157,7 @@ class DeviceSettings extends Component<any,any> { // TODO: Properly define / enf
         <span className="SectionHeader">User Preferences</span><br/>
           {prefs}
         </div>
-        <div className="DeviceProfile">
-          <span className="SectionHeader">Device Profile</span><br/>
-          { myInfo }
-        </div>
+        
         <div className="ChannelSettings">
         <span className="SectionHeader">Channel Settings</span><br/>
          { channelSettings }
